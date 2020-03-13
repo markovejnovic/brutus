@@ -284,3 +284,4 @@ tags
 _site
 Gemfile.lock
 
+test-dist/
