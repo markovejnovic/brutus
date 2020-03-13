@@ -1,11 +1,11 @@
-import WeeklySchedule from './WeeklySchedule';
+import WeeklyRepeatingPeriod from './WeeklyRepeatingPeriod';
 
 /**
  * Represents a course the user takes
  *
  * Parameters:
  *  name (string) - The course name
- *  schedule (WeeklySchedule) - The weekly schedule
+ *  schedule (WeeklyRepeatingPeriod) - The weekly schedule
  */
 class Course {
   constructor(name, schedule) {

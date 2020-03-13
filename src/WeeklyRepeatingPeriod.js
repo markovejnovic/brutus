@@ -9,7 +9,7 @@ import { compareWeekDays } from './util/weekdays';
  *    (DayPeriod) period
  */
 
-class WeeklyRepeatingPeriod {
+export default class WeeklyRepeatingPeriod {
   constructor(schedule) {
     this.schedule = schedule;
   }
@@ -36,5 +36,44 @@ class WeeklyRepeatingPeriod {
     this._schedule = schedule.sort((a, b) => {
       compareWeekDays(a.day, b.day);
     });
+  }
+
+  /**
+   * Checks whether there is a conflict with another WeeklyRepeatingPeriod
+   *
+   * Arguments:
+   *  other (WeeklyRepeatingPeriod) - The schedule to check against
+   *
+   * Returns:
+   *  boolean - Whether the two periods conflict
+   *
+   * Note:
+   *  This is O(n^2) at worst. There is surely a better way to do this.
+   *
+   * TODO:
+   *  Reimplement
+   */
+  conflicts(other) {
+    let conflicts = false;
+
+    this.schedule.forEach((obj) => {
+      other.schedule.forEach((otherObj) => {
+        if (obj.day === otherObj.day && obj.period.conflicts(otherObj.period)) {
+          conflicts = true;
+          return;
+        }
+      });
+    });
+
+    other.schedule.forEach((otherObj) => {
+      this.schedule.forEach((obj) => {
+        if (obj.day === otherObj.day && otherObj.period.conflicts(obj.period)) {
+          conflicts = true;
+          return;
+        }
+      });
+    });
+
+    return conflicts;
   }
 }

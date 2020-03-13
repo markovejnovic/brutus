@@ -83,9 +83,15 @@ describe('DayPeriod.conflicts(period)', function () {
                            new DayMoment(1, 2, 3));
     let p2 = new DayPeriod(new DayMoment(0, 0, 0),
                            new DayMoment(0, 2, 3));
+    expect(p1.conflicts(p2) && p2.conflicts(p1)).to.be.true;
+  });
+
+  it('returns false when it does not conflict with another TimePeriod',
+      function() {
+    let p1 = new DayPeriod(new DayMoment(0, 0, 0),
+                           new DayMoment(1, 2, 3));
     let p3 = new DayPeriod(new DayMoment(2, 3, 0),
                            new DayMoment(3, 0, 0));
-    expect(p1.conflicts(p2) && p2.conflicts(p1)).to.be.true &&
-      expect(p1.conflicts(p3) && p3.conflicts(p1)).to.be.false;
+    expect(p1.conflicts(p3) && p3.conflicts(p1)).to.be.false;
   });
 });
